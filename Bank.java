@@ -11,7 +11,7 @@ public class Bank {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
         String timestamp = now.format(formatter);
-        return prefix + timestamp + System.currentTimeMillis();
+        return prefix + timestamp;
     }
 
     public static void main(String args[]) {

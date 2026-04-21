@@ -106,7 +106,7 @@ class Transaction{
             st2.executeUpdate();
 
             insertTransaction(con, sender.getAccNo(),"TRANSFER", amount, "Transferred " + amount + " to " + receiver.getAccNo());
-            insertTransaction(con, sender.getAccNo(),"TRANSFER", amount, "Received " + amount + " from " + sender.getAccNo());
+            insertTransaction(con, receiver.getAccNo(),"TRANSFER", amount, "Received " + amount + " from " + sender.getAccNo());
             con.commit();
 
             sender.setBalance(sender.getBalance() - amount);
