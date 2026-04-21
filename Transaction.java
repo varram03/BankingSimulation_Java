@@ -143,7 +143,7 @@ class Transaction{
     public void showHistory(String accNo, int limit){
         try{
             Connection con = Database.connect();
-            String sql = "Select * from transactions where accNo = ? Order by date desc limit ?";
+            String sql = "Select * from transactions where accNo = ? and (type IN ('DEPOSIT', 'WITHDRAW') or (type = 'TRANSFER' and description like 'Transferred%')) Order by date desc limit ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, accNo);
             st.setInt(2, limit);
