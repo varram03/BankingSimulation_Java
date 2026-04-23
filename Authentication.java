@@ -1,3 +1,5 @@
+import java.security.MessageDigest;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 public class Authentication {
@@ -20,6 +22,15 @@ public class Authentication {
         }
         return u && l && d;
     }
+    private String hashPassword(String password) throws Exception{
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] hb = md.digest(password.getBytes(StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        for(byte b:hb){
+            sb.append(String.format("%0.2x",b));
+        }
+        return sb.toString();
+    }
 
     public void registerUser(String userId, String password) throws Exception {
         if (!isValidPwd(password)) {
@@ -33,7 +44,7 @@ public class Authentication {
             String query = "INSERT INTO users (userId, password) VALUES (?, ?)";
             PreparedStatement st = conn.prepareStatement(query);
             st.setString(1, userId);
-            st.setString(2, password);
+            st.setString(2, hashPassword(password));
             st.executeUpdate();
             System.out.println("User registered successfully!");
         } catch (Exception e) {
@@ -56,7 +67,7 @@ public class Authentication {
                 return -1;
             }
             String actualPwd = rs.getString("password");
-            if (actualPwd.equals(password)) {
+            if (actualPwd.equals(hashPassword(password))) {
                 return 1;
             } else {
                 return 0;
