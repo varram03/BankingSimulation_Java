@@ -27,7 +27,7 @@ public class Authentication {
         byte[] hb = md.digest(password.getBytes(StandardCharsets.UTF_8));
         StringBuilder sb = new StringBuilder();
         for(byte b:hb){
-            sb.append(String.format("%0.2x",b));
+            sb.append(String.format("%02x",b));
         }
         return sb.toString();
     }
