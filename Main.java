@@ -3,7 +3,7 @@ import java.util.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Bank {
+public class Main {
     private static Scanner sc = new Scanner(System.in);
 
     private static String generateAccountNumber(String userId) {
