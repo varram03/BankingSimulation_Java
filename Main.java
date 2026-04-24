@@ -18,7 +18,7 @@ public class Main {
     }
 
 
-    public static void main(String args[]) {
+    /*   public static void main(String args[]) {
         Authentication a = new Authentication();
         Transaction t = new Transaction();
         User u = null;
@@ -177,13 +177,9 @@ public class Main {
             System.out.println("4. View Transaction History");
             System.out.println("5. Switch Account");
             System.out.println("6.Logout");
-
-
             System.out.print("Choose an option: ");
             int op = sc.nextInt();
             sc.nextLine();
-
-
             try {
                 switch (op) {
                     case 1:
@@ -234,7 +230,7 @@ public class Main {
             }
         }
     }
-
+*/
 
     public static Account fetch(String accNo) {
         try{

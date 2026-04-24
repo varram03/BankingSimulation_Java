@@ -146,6 +146,10 @@ class Transaction{
             st.setString(1, accNo);
             st.setInt(2, limit);
             ResultSet rs = st.executeQuery();
+            /*System.out.println("\n------ Transaction History ------");
+            System.out.printf("%-12s %-12s %-35s %-20s%n","Type","Amount","Description","Date");
+            System.out.println("-------------------------");
+            boolean found = false; */
             String[] cols = {"Type", "Amount", "Description", "Date"};
             DefaultTableModel dtm = new DefaultTableModel(cols,0);
             while(rs.next()){
