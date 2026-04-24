@@ -5,11 +5,17 @@ A Java-based banking application that simulates core banking operations using Ob
 ## Features
 
 **Secure Authentication**: User registration and login with SHA-256 password hashing and password validation.
+
 **Account Management**: Create, manage, and switch between Savings and Current accounts.
+
 **Banking Operations**: Perform deposits, withdrawals, and fund transfers with balance validation.
+
 **Transaction History**: View stored records of deposits, withdrawals, and transfers.
+
 **Database Persistence**: Manage users, accounts, and transactions using MySQL and JDBC.
+
 **Transaction Integrity**: Uses commit/rollback to ensure reliable financial operations.
+
 **Exception Handling**: Handles invalid transactions and insufficient balance scenarios.
 
 ## Tech Stack
