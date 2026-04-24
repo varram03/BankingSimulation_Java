@@ -19,13 +19,14 @@ class User{
     }
 
     public void loadFromDB() {
+        accounts.clear();
         try (Connection con = Database.connect()){
             String sql = "SELECT * FROM accounts WHERE userId = ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, userId);
 
             ResultSet rs = st.executeQuery();
-
+            accounts.clear();
             while (rs.next()) {
                 accounts.add(new Account(
                     rs.getString("accNo"),

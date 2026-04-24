@@ -1,6 +1,9 @@
 import java.security.MessageDigest;
 import java.nio.charset.StandardCharsets;
 import java.sql.*;
+import javax.swing.*;
+
+import javax.swing.JOptionPane;
 
 public class Authentication {
     public boolean isValidPwd(String password) {
@@ -32,13 +35,14 @@ public class Authentication {
         return sb.toString();
     }
 
-    public void registerUser(String userId, String password) throws Exception {
+    public boolean registerUser(String userId, String password) throws Exception {
         if (!isValidPwd(password)) {
-            System.out.println("ERROR: Weak Password");
-            System.out.println("Must contain:");
-            System.out.println("- At least 8 characters");
-            System.out.println("- Uppercase, lowercase, and digit\n");
-            return;
+            JOptionPane.showMessageDialog(null,
+                "\nUse a Strong Password\nPassword cannot be blank and must contain:\n"+
+                "- At least 8 characters\n" +
+                "- Uppercase, lowercase, and digit\n"
+            );
+            return false;
         }
         try (Connection conn = Database.connect()) {
             String query = "INSERT INTO users (userId, password) VALUES (?, ?)";
@@ -46,10 +50,10 @@ public class Authentication {
             st.setString(1, userId);
             st.setString(2, hashPassword(password));
             st.executeUpdate();
-            System.out.println("User registered successfully!");
+            return true;
         } catch (Exception e) {
-            System.out.println("Error!");
             e.printStackTrace();
+            return false;
         }
     }
 

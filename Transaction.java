@@ -1,4 +1,6 @@
 import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 class Transaction{
     public void deposit(Account acc, double amount) throws InvalidTransactionException{
@@ -19,8 +21,6 @@ class Transaction{
             con.commit();
 
             acc.setBalance(acc.getBalance() + amount);
-            System.out.println("The amount " + amount + " is deposited successfully!");
-            System.out.println("The current balance is: " + acc.getBalance());
 
         }catch(Exception e){
             try{
@@ -45,7 +45,7 @@ class Transaction{
         }
 
         if(acc.getBalance()<amount){
-            throw new InvalidTransactionException("Insuffiencient Balance");
+            throw new InvalidTransactionException("Insufficient Balance");
         }
         Connection con = null;
         try{
@@ -61,8 +61,6 @@ class Transaction{
             con.commit();
 
             acc.setBalance(acc.getBalance() - amount);
-            System.out.println("The amount " + amount + " is withdrawn successfully!");
-            System.out.println("The current balance is: " + acc.getBalance());
 
         }catch(Exception e){
             try{
@@ -143,26 +141,23 @@ class Transaction{
     public void showHistory(String accNo, int limit){
         try{
             Connection con = Database.connect();
-            String sql = "Select * from transactions where accNo = ? and (type IN ('DEPOSIT', 'WITHDRAW') or (type = 'TRANSFER' and description like 'Transferred%')) Order by date desc limit ?";
+            String sql = "SELECT * FROM transactions WHERE accNo=? ORDER BY date DESC LIMIT ?";
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, accNo);
             st.setInt(2, limit);
             ResultSet rs = st.executeQuery();
-            System.out.println("\n-----Transaction History:----");
-            System.out.printf("%-12s %-10s %-20s %-20s\n" , "Type", "Amount", "Description","Date");
-            System.out.println("------------------------------");
-            boolean hasData = false;
+            String[] cols = {"Type", "Amount", "Description", "Date"};
+            DefaultTableModel dtm = new DefaultTableModel(cols,0);
             while(rs.next()){
-                hasData = true;
-                System.out.printf("%-12s %-10.2f %-20s %-20s\n",  
-                rs.getString("type"), 
-                rs.getDouble("amount"), 
-                rs.getString("description"),
-                rs.getTimestamp("date"));
+                dtm.addRow(new Object[]{
+                    rs.getString("type"),
+                    rs.getDouble("amount"), 
+                    rs.getString("description"),
+                    rs.getTimestamp("date")
+                });
             }
-            if(!hasData){
-                System.out.println("No transactions found.");
-            }
+            JTable table = new JTable(dtm);
+            JOptionPane.showMessageDialog(null, new JScrollPane(table));
         }catch(Exception e){
                 System.out.println("Error! Try again later.");
                 e.printStackTrace();

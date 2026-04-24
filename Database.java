@@ -3,7 +3,7 @@ import java.sql.*;
 public class Database {
     private static final String url = "jdbc:mysql://localhost:3306/banking?autoReconnect=true&useSSL=false";
     private static final String user = "root";
-    private static final String password = "yourpassword"; 
+    private static final String password = ""; 
     private static Connection conn = null;
     public static Connection connect(){
         try{
