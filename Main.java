@@ -18,7 +18,7 @@ public class Main {
     }
 
 
-    /*   public static void main(String args[]) {
+        public static void main(String args[]) {
         Authentication a = new Authentication();
         Transaction t = new Transaction();
         User u = null;
@@ -230,7 +230,6 @@ public class Main {
             }
         }
     }
-*/
 
     public static Account fetch(String accNo) {
         try{
