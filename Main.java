@@ -6,8 +6,6 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     private static Scanner sc = new Scanner(System.in);
-
-
     public static String generateAccountNumber(String userId, String accType) {
         String prefix = userId.length() >= 2 ? userId.substring(0, 2).toUpperCase() : userId.toUpperCase();
         String typeCode = accType.equalsIgnoreCase("Savings") ? "S" : "C";
@@ -16,18 +14,12 @@ public class Main {
         String timestamp = now.format(formatter);
         return prefix + typeCode + timestamp;
     }
-
-
-        public static void main(String args[]) {
+    public static void main(String args[]) {
         Authentication a = new Authentication();
         Transaction t = new Transaction();
         User u = null;
         String curUser = null;
-
-
         System.out.println("\n------- Welcome to the Banking Simulation!---------");
-
-
         while (u == null) {
             System.out.println("\n1.Register");
             System.out.println("2.Login");
@@ -50,8 +42,6 @@ public class Main {
                 e.printStackTrace();
             }
         }
-
-
         boolean session = true;
         while (session) {
             System.out.println("\n------Menu------");
@@ -88,7 +78,6 @@ public class Main {
         sc.close();
     }
 
-
     private static void handleRegister(Authentication a) throws Exception {
         System.out.print("Enter User ID: ");
         String userId = sc.nextLine();
@@ -96,7 +85,6 @@ public class Main {
         String password = sc.nextLine();
         a.registerUser(userId, password);
     }
-
 
     private static User handlelogin(Authentication a) throws Exception {
         System.out.print("Enter User ID: ");
@@ -126,7 +114,6 @@ public class Main {
         return null;
     }
 
-
     private static void createAccount(User u, String userId) {
         System.out.println("Enter the account type (savings/current): ");
         String atype = sc.nextLine();
@@ -141,7 +128,6 @@ public class Main {
         System.out.println("Your generated account number is: " + accNo);
         u.loadFromDB();
     }
-
 
     private static void selectAccount(User u, Transaction t) {
         if (u.getAccounts().isEmpty()) {
@@ -165,7 +151,6 @@ public class Main {
         }
         accountmenu(selected, t);
     }
-
 
     private static void accountmenu(Account acc, Transaction t) {
         boolean Loggedin = true;

@@ -104,7 +104,11 @@ public class gui extends JFrame{
             if(selected!=null)
                 card.show(container, "accountMenu");
         });
-        logoutButton.addActionListener(e->System.exit(0));
+        logoutButton.addActionListener(e->{
+            currUser = null;
+            selected = null;
+            card.show(container, "login");
+    });
         return p;
     }
 
@@ -148,7 +152,11 @@ public class gui extends JFrame{
         switchButton.addActionListener(e->{
             card.show(container,"userMenu");
         });
-        logoutButton.addActionListener(e-> System.exit(0));
+        logoutButton.addActionListener(e->{
+            currUser = null;
+            selected = null;
+            card.show(container,"login");
+        });
         return p;
     }
 

@@ -51,7 +51,10 @@ public class Authentication {
             st.setString(2, hashPassword(password));
             st.executeUpdate();
             return true;
-        } catch (Exception e) {
+        }catch (SQLIntegrityConstraintViolationException e) {
+            JOptionPane.showMessageDialog(null,"User already registered. Please login.");
+            return false;
+        }catch (Exception e) {
             e.printStackTrace();
             return false;
         }
